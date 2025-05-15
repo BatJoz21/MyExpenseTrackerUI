@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="joz.javapractice.myexpensetrackerui.controllers.LoginController"
+      spacing="15" alignment="CENTER" styleClass="login-vbox">
+
+    <Text text="My Expense Tracker" styleClass="login-heading"/>
+    <Text text="Enter you login credentials!" styleClass="login-subheading"/>
+    <MFXTextField fx:id="usernameField" promptText="Enter your username" styleClass="mfx-text-field"/>
+    <MFXTextField fx:id="passwordField" promptText="Enter you password" styleClass="mfx-password-field"/>
+    <MFXButton fx:id="submitButton" text="Submit" onAction="#handleLogin" styleClass="mfx-button"/>
+    <HBox alignment="CENTER">
+        <Text text="Not Registered?"/>
+        <Text text="Register Now!" styleClass="link-text" onMouseClicked="#handleCreateAccount"/>
+    </HBox>
+
+</VBox>
