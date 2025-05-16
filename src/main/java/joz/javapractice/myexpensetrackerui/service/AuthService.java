@@ -4,9 +4,11 @@ import com.google.gson.Gson;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import joz.javapractice.myexpensetrackerui.models.AuthRequest;
 import joz.javapractice.myexpensetrackerui.models.AuthResponse;
+import joz.javapractice.myexpensetrackerui.security.AuthenticationException;
 import joz.javapractice.myexpensetrackerui.utils.HttpClientUtil;
 import joz.javapractice.myexpensetrackerui.utils.JwtStorageUtil;
 
@@ -23,18 +25,18 @@ public class AuthService {
                     try {
                         String url = BASE_URL + "/signup";
                         String jsonBody = gson.toJson(request);
-                        HttpResponse<String> response = HttpClientUtil.sendPostRequest(url, jsonBody);
-                        AuthResponse authResponse = gson.fromJson(response.body(), AuthResponse.class);
+                        String response = HttpClientUtil.sendPostRequest(url, jsonBody);
+                        AuthResponse authResponse = gson.fromJson(response, AuthResponse.class);
                         if ("success".equals(authResponse.getMessage())){
                             JwtStorageUtil.saveToken(authResponse.getToken());
                             Platform.runLater(
-                                    () -> navigateToLoginScreen(stage)
+                                    () -> navigateToLoadingScreen(stage)
                             );
                         }
                         else{
                             System.out.println(authResponse.getMessage());
                         }
-                    } catch (IOException | InterruptedException e){
+                    } catch (IOException | InterruptedException | AuthenticationException e){
                         e.printStackTrace();
                     }
                 }
@@ -47,8 +49,8 @@ public class AuthService {
                     try {
                         String url = BASE_URL + "/login";
                         String jsonBody = gson.toJson(request);
-                        HttpResponse<String> response = HttpClientUtil.sendPostRequest(url, jsonBody);
-                        AuthResponse authResponse = gson.fromJson(response.body(), AuthResponse.class);
+                        String response = HttpClientUtil.sendPostRequest(url, jsonBody);
+                        AuthResponse authResponse = gson.fromJson(response, AuthResponse.class);
                         if ("success".equals(authResponse.getMessage())){
                             JwtStorageUtil.saveToken(authResponse.getToken());
                             Platform.runLater(
@@ -58,7 +60,7 @@ public class AuthService {
                         else{
                             System.out.println(authResponse.getMessage());
                         }
-                    } catch (IOException | InterruptedException e){
+                    } catch (IOException | InterruptedException | AuthenticationException e){
                         e.printStackTrace();
                     }
                 }
@@ -90,6 +92,21 @@ public class AuthService {
             stage.setScene(loadingScene);
         } catch (IOException e){
             System.out.println(e.getMessage());
+        }
+    }
+
+    private static void navigateToMainScreen(Stage stage){
+        try {
+            FXMLLoader loader = new FXMLLoader(AuthService.class
+                    .getResource("/joz/javapractice/myexpensetrackerui/views/MainScreen.fxml"));
+            Scene mainScene = new Scene(loader.load());
+            mainScene.getStylesheets().add(AuthService.class
+                    .getResource("/joz/javapractice/myexpensetrackerui/css/main-screen.css").toExternalForm());
+
+            stage.setScene(mainScene);
+        } catch (IOException e) {
+            e.printStackTrace();
+            // showAlert(Alert.AlertType.ERROR, "Loading Error", "Could not load the MainScreen.");
         }
     }
 }

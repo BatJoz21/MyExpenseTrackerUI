@@ -18,7 +18,7 @@
     <Text text="Create your account" styleClass="signup-subheading"/>
     <MFXTextField fx:id="fullNameField" promptText="Enter your Full Name"/>
     <MFXTextField fx:id="usernameField" promptText="Enter your username"/>
-    <MFXTextField fx:id="passwordField" promptText="Enter you password"/>
+    <MFXTextField fx:id="passwordField" promptText="Enter you password" styleClass="mfx-password-field"/>
     <MFXButton fx:id="signupButton" text="Sign Up" onAction="#handleSignup" styleClass="mfx-button"/>
     <HBox alignment="CENTER">
         <Text text="Already Registered?"/>

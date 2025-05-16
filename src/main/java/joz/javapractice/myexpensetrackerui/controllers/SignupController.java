@@ -3,6 +3,7 @@ package joz.javapractice.myexpensetrackerui.controllers;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -14,11 +15,16 @@ import joz.javapractice.myexpensetrackerui.service.AuthService;
 import java.io.IOException;
 
 public class SignupController {
+    @FXML
     public MFXTextField fullNameField;
+    @FXML
     public MFXTextField usernameField;
+    @FXML
     public MFXTextField passwordField;
+    @FXML
     public MFXButton signupButton;
 
+    @FXML
     public void handleSignup(ActionEvent actionEvent) {
         AuthRequest request = new AuthRequest();
         request.setFullName(fullNameField.getText());
@@ -29,6 +35,7 @@ public class SignupController {
         AuthService.signup(request, stage);
     }
 
+    @FXML
     public void handleLoginAccount(MouseEvent mouseEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass()

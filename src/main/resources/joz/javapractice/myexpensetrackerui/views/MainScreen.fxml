@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="joz.javapractice.myexpensetrackerui.controllers.MainController">
+    <HBox spacing="20" styleClass="main-layout">
+        <VBox spacing="20" alignment="TOP_CENTER" HBox.hgrow="NEVER" styleClass="sidebar">
+            <Label text="Actions" styleClass="sidebar-heading"/>
+            <MFXButton fx:id="addExpenseButton" text="Add Expense"
+                       onAction="#handleAddExpense" styleClass="outlined-button"/>
+            <DatePicker fx:id="datePicker" promptText="Select Date"/>
+            <MFXButton fx:id="viewMonthlyStatsButton" text="View Monthly Stats"
+                       onAction="#handleViewMonthlyStats" styleClass="outlined-button"/>
+            <Region VBox.vgrow="ALWAYS"/>
+            <MFXButton fx:id="logoutButton" text="Logout" onAction="#handleLogout" styleClass="solid-button"/>
+        </VBox>
+
+        <VBox spacing="20" HBox.hgrow="ALWAYS" styleClass="expense-table-container">
+            <Label text="Expenses" styleClass="expenses-header"/>
+            <TableView fx:id="expenseTable" styleClass="expense-table">
+                <TableColumn fx:id="categoryColumn" text="Category"/>
+                <TableColumn fx:id="descriptionColumn" text="Description"/>
+                <TableColumn fx:id="amountColumn" text="Amount"/>
+                <TableColumn fx:id="dateColumn" text="Date"/>
+                <TableColumn fx:id="editColumn" text="Edit"/>
+                <TableColumn fx:id="deleteColumn" text="Delete"/>
+            </TableView>
+        </VBox>
+    </HBox>
+</StackPane>

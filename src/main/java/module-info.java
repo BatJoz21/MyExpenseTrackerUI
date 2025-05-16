@@ -6,9 +6,11 @@ module joz.javapractice.myexpensetrackerui {
     requires static lombok;
     requires MaterialFX;
     requires java.prefs;
+    requires javafx.base;
 
     opens joz.javapractice.myexpensetrackerui to javafx.fxml;
     opens joz.javapractice.myexpensetrackerui.controllers to javafx.fxml;
-    opens joz.javapractice.myexpensetrackerui.models to com.google.gson;
+    opens joz.javapractice.myexpensetrackerui.models to com.google.gson, javafx.base;
+
     exports joz.javapractice.myexpensetrackerui;
 }

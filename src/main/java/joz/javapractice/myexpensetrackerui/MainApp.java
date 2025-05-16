@@ -23,11 +23,14 @@ public class MainApp extends Application {
                         .build().setGlobal();
 
         stage.setTitle("My Expense Tracker App");
+        stage.setWidth(900);
+        stage.setHeight(600);
+        stage.setResizable(false);
         stage.initStyle(StageStyle.DECORATED);
 
         String token = JwtStorageUtil.getToken();
         if (token != null){
-            loadLoadingScreen(stage);
+            loadMainScreen(stage);
         }else{
             loadLoginScreen(stage);
         }
@@ -56,6 +59,17 @@ public class MainApp extends Application {
                 .getResource("/joz/javapractice/myexpensetrackerui/css/style.css").toExternalForm());
 
         stage.setScene(scene);
+        stage.show();
+    }
+
+    private void loadMainScreen(Stage stage) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass()
+                .getResource("/joz/javapractice/myexpensetrackerui/views/MainScreen.fxml"));
+        Scene mainScene = new Scene(loader.load());
+        mainScene.getStylesheets().add(getClass()
+                .getResource("/joz/javapractice/myexpensetrackerui/css/main-screen.css").toExternalForm());
+
+        stage.setScene(mainScene);
         stage.show();
     }
 }
