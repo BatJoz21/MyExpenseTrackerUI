@@ -7,14 +7,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import joz.javapractice.myexpensetrackerui.models.Expense;
 import joz.javapractice.myexpensetrackerui.models.ExpenseData;
-import joz.javapractice.myexpensetrackerui.security.AuthenticationException;
 import joz.javapractice.myexpensetrackerui.service.ExpenseDataParser;
 import joz.javapractice.myexpensetrackerui.utils.HttpClientUtil;
 import joz.javapractice.myexpensetrackerui.utils.JwtStorageUtil;
@@ -144,7 +142,34 @@ public class MainController {
                         event -> {
                             Expense expense = getTableView().getItems().get(getIndex());
                             System.out.println("Editing: " + expense.getNote());
-                            // Add editing expense logic
+                            try {
+                                FXMLLoader loader = new FXMLLoader(getClass()
+                                        .getResource("/joz/javapractice/myexpensetrackerui/views/EditExpenseScreen.fxml"));
+                                VBox editPane = loader.load();
+
+                                EditExpenseController editController = loader.getController();
+                                editController.setMainController(MainController.this);
+                                editController.initEditMode(
+                                        expense.getId(), String.valueOf(expense.getExpenseType()), expense.getDate(),
+                                        expense.getAmount(), expense.getCategory(), expense.getAccount(), expense.getNote()
+                                );
+
+                                Scene editScene = new Scene(editPane);
+                                editScene.getStylesheets().add(
+                                        getClass().getResource("/joz/javapractice/myexpensetrackerui/css/expense-screen.css")
+                                                .toExternalForm()
+                                );
+
+                                Stage stage = new Stage();
+                                stage.initModality(Modality.APPLICATION_MODAL);
+                                stage.setScene(editScene);
+                                stage.setTitle("Edit Expense");
+                                stage.setWidth(600);
+                                stage.setResizable(false);
+                                stage.showAndWait();
+                            } catch (IOException e){
+                                e.printStackTrace();
+                            }
                         }
                 );
                 editButton.getStyleClass().add("outlined-button");
@@ -173,7 +198,31 @@ public class MainController {
                         event -> {
                             Expense expense = getTableView().getItems().get(getIndex());
                             System.out.println("Deleting: " + expense.getNote());
-                            // Add deleting expense logic
+                            try {
+                                FXMLLoader loader = new FXMLLoader(getClass()
+                                        .getResource("/joz/javapractice/myexpensetrackerui/views/DeleteExpenseScreen.fxml"));
+                                VBox deletePanel = loader.load();
+
+                                DeleteExpenseController deleteController = loader.getController();
+                                deleteController.setExpenseId(expense.getId());
+                                deleteController.setMainController(MainController.this);
+
+                                Scene deleteScene = new Scene(deletePanel);
+                                deleteScene.getStylesheets().add(
+                                        getClass().getResource("/joz/javapractice/myexpensetrackerui/css/expense-screen.css")
+                                                .toExternalForm()
+                                );
+
+                                Stage stage = new Stage();
+                                stage.initModality(Modality.APPLICATION_MODAL);
+                                stage.setScene(deleteScene);
+                                stage.setTitle("Delete Expense");
+                                stage.setWidth(600);
+                                stage.setResizable(false);
+                                stage.showAndWait();
+                            } catch (IOException e){
+                                e.printStackTrace();
+                            }
                         }
                 );
                 deleteButton.getStyleClass().add("outlined-button");

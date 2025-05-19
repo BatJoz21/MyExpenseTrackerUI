@@ -1,6 +1,7 @@
 package joz.javapractice.myexpensetrackerui.controllers;
 
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,7 +21,7 @@ public class SignupController {
     @FXML
     public MFXTextField usernameField;
     @FXML
-    public MFXTextField passwordField;
+    public MFXPasswordField passwordField;
     @FXML
     public MFXButton signupButton;
 

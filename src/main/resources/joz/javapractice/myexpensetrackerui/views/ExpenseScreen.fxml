@@ -30,6 +30,6 @@
 
     <HBox spacing="20" styleClass="hbox-centered">
         <MFXButton fx:id="submitButton" text="Submit" onAction="#handleSubmit" styleClass="submit-button"/>
-        <MFXButton fx:id="cancelButton" text="Cancel" onAction="#handleCancel"/>
+        <MFXButton fx:id="cancelButton" text="Cancel" onAction="#handleCancel" styleClass="cancel-button"/>
     </HBox>
 </VBox>

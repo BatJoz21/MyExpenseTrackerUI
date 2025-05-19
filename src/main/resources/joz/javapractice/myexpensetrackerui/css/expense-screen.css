@@ -17,7 +17,18 @@
     -fx-border-radius: 5px;
     -fx-padding: 10px 20px;
     -fx-font-size: 16px;
-    -fx-pref-width: 200px;
+    -fx-pref-width: 150px;
+    -fx-margin-top: 20px; /* Add margin above submit button */
+}
+
+/* Cancel button styling */
+.cancel-button {
+    -fx-background-color: #c41e3a;
+    -fx-text-fill: white;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px 20px;
+    -fx-font-size: 16px;
+    -fx-pref-width: 100px;
     -fx-margin-top: 20px; /* Add margin above submit button */
 }
 

@@ -8,6 +8,7 @@
 <?import javafx.scene.text.Text?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXPasswordField?>
 
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
@@ -18,7 +19,7 @@
     <Text text="Create your account" styleClass="signup-subheading"/>
     <MFXTextField fx:id="fullNameField" promptText="Enter your Full Name"/>
     <MFXTextField fx:id="usernameField" promptText="Enter your username"/>
-    <MFXTextField fx:id="passwordField" promptText="Enter you password" styleClass="mfx-password-field"/>
+    <MFXPasswordField fx:id="passwordField" promptText="Enter you password" styleClass="mfx-password-field"/>
     <MFXButton fx:id="signupButton" text="Sign Up" onAction="#handleSignup" styleClass="mfx-button"/>
     <HBox alignment="CENTER">
         <Text text="Already Registered?"/>

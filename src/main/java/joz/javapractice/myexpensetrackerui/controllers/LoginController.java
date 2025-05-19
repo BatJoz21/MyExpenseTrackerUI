@@ -1,6 +1,7 @@
 package joz.javapractice.myexpensetrackerui.controllers;
 
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,14 +12,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import joz.javapractice.myexpensetrackerui.models.AuthRequest;
 import joz.javapractice.myexpensetrackerui.service.AuthService;
-
 import java.io.IOException;
 
 public class LoginController {
     @FXML
     public MFXTextField usernameField;
     @FXML
-    public MFXTextField passwordField;
+    public MFXPasswordField passwordField;
     @FXML
     public MFXButton submitButton;
 

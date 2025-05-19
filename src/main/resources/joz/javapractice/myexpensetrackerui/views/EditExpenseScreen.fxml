@@ -6,9 +6,49 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="joz.javapractice.myexpensetrackerui.views.EditExpenseScreen"
-            prefHeight="400.0" prefWidth="600.0">
+<?import javafx.scene.text.Text?>
+<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="joz.javapractice.myexpensetrackerui.controllers.EditExpenseController"
+      spacing="20">
+    <HBox spacing="10" styleClass="hbox-centered">
+        <HBox spacing="5" styleClass="hbox-centered">
+            <Text text="Expense Type: "/>
+            <MFXComboBox fx:id="expenseTypeDropdown" promptText="Expense Type" styleClass="dropdown-half"/>
+        </HBox>
+        <HBox spacing="5" styleClass="hbox-centered">
+            <Text text="Date: "/>
+            <DatePicker fx:id="datePicker" promptText="Select Date" styleClass="date-picker-half"/>
+        </HBox>
+    </HBox>
 
-</AnchorPane>
+    <HBox spacing="10" styleClass="hbox-centered">
+        <HBox spacing="5" styleClass="hbox-centered">
+            <Text text="Amount: "/>
+            <MFXTextField fx:id="amountField" promptText="Enter Amount" styleClass="texfield-half"/>
+        </HBox>
+        <HBox spacing="5" styleClass="hbox-centered">
+            <Text text="Category: "/>
+            <MFXComboBox fx:id="categoryDropDown" promptText="Select Category" styleClass="dropdown-half"/>
+        </HBox>
+    </HBox>
+
+    <HBox spacing="10" styleClass="hbox-centered">
+        <HBox spacing="5" styleClass="hbox-centered">
+            <Text text="Account: "/>
+            <MFXComboBox fx:id="accountDropdown" promptText="Select Account" styleClass="dropdown-half"/>
+        </HBox>
+        <HBox spacing="5" styleClass="hbox-centered">
+            <Text text="Category: "/>
+            <MFXTextField fx:id="noteField" promptText="Enter Note" styleClass="textfield-half"/>
+        </HBox>
+    </HBox>
+
+    <HBox spacing="20" styleClass="hbox-centered">
+        <MFXButton fx:id="submitButton" text="Submit" onAction="#handleSubmit" styleClass="submit-button"/>
+        <MFXButton fx:id="cancelButton" text="Cancel" onAction="#handleCancel" styleClass="cancel-button"/>
+    </HBox>
+</VBox>

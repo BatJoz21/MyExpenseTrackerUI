@@ -24,6 +24,10 @@
 .mfx-text-field, .mfx-password-field {
     -fx-pref-width: 400px; /* Increased width */
     -fx-pref-height: 35px;  /* Reduced height */
+    fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: #ccc;
+    -fx-background-color: #fff;
 }
 
 /* Button Styles */

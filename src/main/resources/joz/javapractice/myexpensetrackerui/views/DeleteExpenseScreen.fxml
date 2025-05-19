@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="joz.javapractice.myexpensetrackerui.controllers.DeleteExpenseController"
+      spacing="30" alignment="CENTER">
+    <Text text="Are you sure want to DELETE this expense?"/>
+    <HBox spacing="20" alignment="CENTER" styleClass="hbox-centered">
+        <MFXButton fx:id="cancelButton" text="NO" onAction="#handleCancel" styleClass="cancel-button"/>
+        <MFXButton fx:id="confirmButton" text="YES" onAction="#handleDelete" styleClass="submit-button"/>
+    </HBox>
+</VBox>

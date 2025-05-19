@@ -14,6 +14,27 @@ public class HttpClientUtil {
     private static final Gson gson = new Gson();
     private static final String BASE_URL = "http://localhost:8080";
 
+    public static HttpResponse<String> sendGetRequest(String path, String token){
+        return null;
+    }
+
+    public static String sendGetRequestWithToken(String path, String token)
+            throws IOException, InterruptedException {
+        HttpRequest httpRequest = HttpRequest.newBuilder()
+                .uri(URI.create(BASE_URL + path))
+                .header("Authorization", "Bearer " + token)
+                .GET()
+                .build();
+
+        HttpResponse<String> response = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+        if (response.statusCode() == 200){
+            return response.body();
+        }
+        else{
+            throw new IOException("Failed to fetch data: " + response.statusCode());
+        }
+    }
+
     public static String sendPostRequest(String url, String jsonBody)
             throws IOException, InterruptedException, AuthenticationException {
         HttpRequest httpRequest = HttpRequest.newBuilder()
@@ -51,29 +72,48 @@ public class HttpClientUtil {
             throw new AuthenticationException("Session has expired. Please log in again.");
         }
 
-        if (httpResponse.statusCode() != 200){
+        if (httpResponse.statusCode() != 200 && httpResponse.statusCode() != 201){
             throw new IOException("Failed to fetch data: " + httpResponse.statusCode());
         }
     }
 
-    public static HttpResponse<String> sendGetRequest(String path, String token){
-        return null;
-    }
-
-    public static String sendGetRequestWithToken(String path, String token)
-            throws IOException, InterruptedException {
-        HttpRequest httpRequest = HttpRequest.newBuilder()
+    public static void sendPutRequestWithToken(String path, String token, String jsonBody)
+            throws IOException, InterruptedException, AuthenticationException {
+        HttpRequest putRequest = HttpRequest.newBuilder()
                 .uri(URI.create(BASE_URL + path))
                 .header("Authorization", "Bearer " + token)
-                .GET()
+                .header("Content-Type", "application/json")
+                .PUT(HttpRequest.BodyPublishers.ofString(jsonBody))
                 .build();
 
-        HttpResponse<String> response = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
-        if (response.statusCode() == 200){
-            return response.body();
+        HttpResponse<String> httpResponse = client.send(putRequest, HttpResponse.BodyHandlers.ofString());
+
+        if (httpResponse.statusCode() == 403){
+            throw new AuthenticationException("Session has expired. Please log in again.");
         }
-        else{
-            throw new IOException("Failed to fetch data: " + response.statusCode());
+
+        if (httpResponse.statusCode() != 200 && httpResponse.statusCode() != 201){
+            throw new IOException("Failed to fetch data: " + httpResponse.statusCode());
+        }
+    }
+
+    public static void sendDeleteRequestWithToken(String path, String token)
+            throws IOException, InterruptedException, AuthenticationException {
+        HttpRequest deleteRequest = HttpRequest.newBuilder()
+                .uri(URI.create(BASE_URL + path))
+                .header("Authorization", "Bearer " + token)
+                .header("Content-Type", "application/json")
+                .DELETE()
+                .build();
+
+        HttpResponse<String> httpResponse = client.send(deleteRequest, HttpResponse.BodyHandlers.ofString());
+
+        if (httpResponse.statusCode() == 403){
+            throw new AuthenticationException("Session has expired. Please log in again.");
+        }
+
+        if (httpResponse.statusCode() != 204){
+            throw new IOException("Failed to fetch data: " + httpResponse.statusCode());
         }
     }
 }

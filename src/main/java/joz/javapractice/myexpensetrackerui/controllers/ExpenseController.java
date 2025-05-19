@@ -9,13 +9,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
 import joz.javapractice.myexpensetrackerui.dto.AddingExpenseDTO;
-import joz.javapractice.myexpensetrackerui.models.Expense;
 import joz.javapractice.myexpensetrackerui.security.AuthenticationException;
 import joz.javapractice.myexpensetrackerui.service.ExpenseDataParser;
 import joz.javapractice.myexpensetrackerui.utils.HttpClientUtil;
 import joz.javapractice.myexpensetrackerui.utils.JwtStorageUtil;
-import lombok.Setter;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -38,11 +35,7 @@ public class ExpenseController {
     @FXML
     public MFXButton cancelButton;
 
-    @Setter
     private MainController mainController;
-
-    private Integer expenseId = null;
-    private boolean isEditing = false;
 
     @FXML
     public void initialize(){
@@ -53,25 +46,14 @@ public class ExpenseController {
         );
         accountDropdown.getItems().addAll(Arrays.asList("Bank", "Cash", "Card"));
 
-        if (!isEditing){
-            datePicker.setValue(LocalDate.now());
-        }
+        datePicker.setValue(LocalDate.now());
 
         datePicker.getEditor().setDisable(true);
         datePicker.getEditor().setOpacity(1);
     }
 
-    public void initEditMode(int id, String expenseType, LocalDate date, double amount,
-                             String category, String account, String note){
-        this.expenseId = id;
-        this.isEditing = true;
-
-        expenseTypeDropdown.setValue(expenseType.equals(0) ? "Expense" : "Income");
-        datePicker.setValue(date);
-        amountField.setText(String.valueOf(amount));
-        categoryDropDown.setValue(category);
-        accountDropdown.setValue(account);
-        noteField.setText(note);
+    public void setMainController(MainController mainController){
+        this.mainController = mainController;
     }
 
     @FXML
@@ -90,14 +72,9 @@ public class ExpenseController {
         String jsonBody = ExpenseDataParser
                 .serializeExpense(new AddingExpenseDTO(expenseType, date, amount, category, account, note));
         String token = JwtStorageUtil.getToken();
-
-        if (isEditing){
-            System.out.println("Editing expense: ID=" + expenseId + ", Type=" + expenseType);
-        }
-        else{
-            System.out.println("Adding new expense: Type=" + expenseType);
-        }
         String path = "/expenses";
+
+        System.out.println("Adding new expense: Type=" + expenseType);
 
         try {
             HttpClientUtil.sendPostRequestWithToken(path, token, jsonBody);
