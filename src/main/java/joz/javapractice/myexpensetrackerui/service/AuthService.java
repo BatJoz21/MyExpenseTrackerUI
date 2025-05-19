@@ -30,7 +30,7 @@ public class AuthService {
                         if ("success".equals(authResponse.getMessage())){
                             JwtStorageUtil.saveToken(authResponse.getToken());
                             Platform.runLater(
-                                    () -> navigateToLoadingScreen(stage)
+                                    () -> navigateToMainScreen(stage)
                             );
                         }
                         else{
@@ -54,7 +54,7 @@ public class AuthService {
                         if ("success".equals(authResponse.getMessage())){
                             JwtStorageUtil.saveToken(authResponse.getToken());
                             Platform.runLater(
-                                    () -> navigateToLoadingScreen(stage)
+                                    () -> navigateToMainScreen(stage)
                             );
                         }
                         else{

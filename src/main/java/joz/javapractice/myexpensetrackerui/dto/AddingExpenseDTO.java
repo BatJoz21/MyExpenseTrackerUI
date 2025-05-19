@@ -1,4 +1,4 @@
-package joz.javapractice.myexpensetrackerui.models;
+package joz.javapractice.myexpensetrackerui.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,8 +7,7 @@ import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
-public class Expense {
-    private Integer id;
+public class AddingExpenseDTO {
     private int expenseType;
     private LocalDate date;
     private double amount;

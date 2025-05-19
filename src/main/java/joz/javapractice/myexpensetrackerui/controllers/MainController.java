@@ -7,6 +7,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import joz.javapractice.myexpensetrackerui.models.Expense;
@@ -50,6 +53,8 @@ public class MainController {
     public void initialize(){
         LocalDate currentDate = LocalDate.now();
         datePicker.setValue(currentDate);
+        datePicker.getEditor().setDisable(true);
+        datePicker.getEditor().setOpacity(1);
 
         expenseTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
 
@@ -81,6 +86,30 @@ public class MainController {
 
     @FXML
     public void handleAddExpense(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass()
+                    .getResource("/joz/javapractice/myexpensetrackerui/views/ExpenseScreen.fxml"));
+            VBox expensePane = loader.load();
+
+            ExpenseController expenseController = loader.getController();
+            expenseController.setMainController(this);
+
+            Scene expenseScene = new Scene(expensePane);
+            expenseScene.getStylesheets().add(
+                    getClass().getResource("/joz/javapractice/myexpensetrackerui/css/expense-screen.css")
+                    .toExternalForm()
+            );
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(expenseScene);
+            stage.setTitle("Add Expense");
+            stage.setWidth(600);
+            stage.setResizable(false);
+            stage.showAndWait();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -164,6 +193,14 @@ public class MainController {
         deleteColumn.setCellFactory(cellfactory);
     }
 
+    public void refreshExpense(){
+        LocalDate selectedDate = datePicker.getValue();
+
+        if (selectedDate != null){
+            fetchExpensesByDate(selectedDate.toString());
+        }
+    }
+
     private void fetchExpensesByDate(String date){
         String formattedDate = date;
         String token = JwtStorageUtil.getToken();
@@ -180,8 +217,6 @@ public class MainController {
 
             expenseTable.getItems().clear();
             expenseTable.getItems().addAll(expenses);
-        } catch (AuthenticationException e){
-            handleAuthenticationFailure();
         } catch (IOException | InterruptedException e){
             e.printStackTrace();
         }

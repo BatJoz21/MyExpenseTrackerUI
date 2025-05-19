@@ -19,4 +19,8 @@ public class ExpenseDataParser {
 
         return gson.fromJson(jsonResponse, expenseListType);
     }
+
+    public static String serializeExpense(Object expense){
+        return gson.toJson(expense);
+    }
 }
