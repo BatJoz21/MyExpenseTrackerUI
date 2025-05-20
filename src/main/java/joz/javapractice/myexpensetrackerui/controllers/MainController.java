@@ -112,6 +112,25 @@ public class MainController {
 
     @FXML
     public void handleViewMonthlyStats(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass()
+                    .getResource("/joz/javapractice/myexpensetrackerui/views/StatisticScreen.fxml"));
+            VBox loaderBox = loader.load();
+
+            Scene statisticScene = new Scene(loaderBox);
+            statisticScene.getStylesheets().add(
+                    getClass().getResource("/joz/javapractice/myexpensetrackerui/css/statistic-screen.css")
+                            .toExternalForm()
+            );
+
+            Stage stage = new Stage();
+            stage.setTitle("Monthly Statistics");
+            stage.setScene(statisticScene);
+            stage.setResizable(false);
+            stage.showAndWait();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     @FXML

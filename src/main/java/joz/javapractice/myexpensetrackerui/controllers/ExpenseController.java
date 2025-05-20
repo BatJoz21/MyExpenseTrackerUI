@@ -42,7 +42,7 @@ public class ExpenseController {
         expenseTypeDropdown.getItems().addAll("Expense", "Income");
         categoryDropDown.getItems().addAll(
                 Arrays.asList("Food", "Transport", "Travel", "Household", "Health",
-                        "Social life", "Gift", "Apparel", "Education", "Beauty", "Salary","Other")
+                        "Social", "Gift", "Apparel", "Education", "Entertainment", "Beauty", "Salary", "Other")
         );
         accountDropdown.getItems().addAll(Arrays.asList("Bank", "Cash", "Card"));
 
